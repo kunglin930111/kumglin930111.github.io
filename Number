@@ -1,0 +1,30 @@
+import requests, json
+import urllib3
+from datetime import datetime
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+
+start = datetime.now()
+url = "https://od.cdc.gov.tw/eic/Dengue_Daily_last12m_EN.json"
+res = requests.get(url)
+
+
+sites = res.json()
+count = int(0)
+dd = {'Taipei City':0,'New Taipei City':0,'Taichung City':0,'Tainan City':0,'Kaohsiung City':0}
+
+for site in sites:
+    if site['County_living']=='Taipei City':
+        dd['Taipei City'] += 1
+    elif site['County_living']=='New Taipei City':
+        dd['New Taipei City'] += 1 
+    elif site['County_living']=='Taichung City':
+        dd['Taichung City'] += 1 
+    elif site['County_living']=='Tainan City':
+        dd['Tainan City'] += 1 
+    elif site['County_living']=='Kaohsiung City':
+        dd['Kaohsiung City'] += 1 
+        
+print (dd)
+        
